@@ -1,42 +1,34 @@
-# ✨ Full Stack Realtime Chat App ✨
+# ChitChats
+# 💬 ChitChat - Realtime Chat App
 
-![Demo App](/frontend/public/screenshot-for-readme.png)
+ChitChat is a modern real-time chat application built with **Node.js**, **Express**, **MongoDB**, and **Socket.IO**. Users can chat live, view profiles, and experience seamless communication with an intuitive UI.
 
-[Video Tutorial on Youtube](https://youtu.be/ntKkVrQqBYY)
+---
 
-Highlights:
+## 🚀 Features
 
-- 🌟 Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
-- 🎃 Authentication && Authorization with JWT
-- 👾 Real-time messaging with Socket.io
-- 🚀 Online user status
-- 👌 Global state management with Zustand
-- 🐞 Error handling both on the server and on the client
-- ⭐ At the end Deployment like a pro for FREE!
-- ⏳ And much more!
+- 👤 User authentication (Signup/Login)
+- 💬 Real-time messaging using Socket.IO
+- 📸 Profile pictures using randomuser API
+- 🔐 JWT-based authentication
+- 🌐 REST API for user and message management
+- 🌈 Fully responsive UI (Frontend coming soon)
 
-### Setup .env file
+---
 
-```js
-MONGODB_URI=...
-PORT=5001
-JWT_SECRET=...
+## 🛠️ Tech Stack
 
-CLOUDINARY_CLOUD_NAME=...
-CLOUDINARY_API_KEY=...
-CLOUDINARY_API_SECRET=...
+| Tech        | Used For            |
+|-------------|---------------------|
+| Node.js     | Backend runtime     |
+| Express.js  | REST API            |
+| MongoDB     | Database            |
+| Mongoose    | ODM for MongoDB     |
+| Socket.IO   | Real-time messaging |
+| dotenv      | Environment config  |
+| bcrypt      | Password hashing    |
+| JWT         | Auth tokens         |
 
-NODE_ENV=development
-```
+---
 
-### Build the app
 
-```shell
-npm run build
-```
-
-### Start the app
-
-```shell
-npm start
-```
