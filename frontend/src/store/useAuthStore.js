@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
+import { generateKeyPair, getPrivateKey } from "../lib/crypto.js";
 
 const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "https://chit-chats-5.onrender.com";
 
@@ -14,12 +15,25 @@ export const useAuthStore = create((set, get) => ({
   onlineUsers: [],
   socket: null,
 
+  initE2EE: async () => {
+    try {
+      let privateKey = await getPrivateKey();
+      if (!privateKey) {
+        const { publicKey } = await generateKeyPair();
+        await axiosInstance.post("/keys", { publicKey });
+      }
+    } catch (err) {
+      console.error("Failed to initialize E2EE keys:", err);
+    }
+  },
+
   checkAuth: async () => {
     try {
       const res = await axiosInstance.get("/auth/check");
 
       set({ authUser: res.data });
       get().connectSocket();
+      get().initE2EE();
     } catch (error) {
       console.log("Error in checkAuth:", error);
       set({ authUser: null });
@@ -35,6 +49,7 @@ export const useAuthStore = create((set, get) => ({
       set({ authUser: res.data });
       toast.success("Account created successfully");
       get().connectSocket();
+      get().initE2EE();
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -50,6 +65,7 @@ export const useAuthStore = create((set, get) => ({
       toast.success("Logged in successfully");
 
       get().connectSocket();
+      get().initE2EE();
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {

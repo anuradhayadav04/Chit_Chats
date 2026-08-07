@@ -15,7 +15,10 @@ const messageSchema = new mongoose.Schema(
     text: {
       type: String,
     },
-    image: {
+    encryptedMessage: {
+      type: String,
+    },
+    nonce: {
       type: String,
     },
   },

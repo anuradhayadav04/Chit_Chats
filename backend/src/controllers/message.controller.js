@@ -37,7 +37,7 @@ export const getMessages = async (req, res) => {
 
 export const sendMessage = async (req, res) => {
   try {
-    const { text, image } = req.body;
+    const { text, encryptedMessage, nonce, image } = req.body;
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
@@ -51,7 +51,9 @@ export const sendMessage = async (req, res) => {
     const newMessage = new Message({
       senderId,
       receiverId,
-      text,
+      text: text || undefined,
+      encryptedMessage: encryptedMessage || undefined,
+      nonce: nonce || undefined,
       image: imageUrl,
     });
 
