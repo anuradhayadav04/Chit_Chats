@@ -81,13 +81,13 @@ export const useChatStore = create((set, get) => ({
           const { ciphertext, nonce } = await encryptMessage(messageData.text, peerPublicKey);
           payload.encryptedMessage = ciphertext;
           payload.nonce = nonce;
-          // Keep raw text locally so sender UI shows decrypted immediately
+          delete payload.text; // Ensure plaintext NEVER leaves the browser to the backend
         }
       }
 
       const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, payload);
-      // Ensure local message state displays plain text
-      const localMsg = { ...res.data, text: messageData.text || res.data.text };
+      // Ensure local message state displays plain text for the sender UI
+      const localMsg = { ...res.data, text: messageData.text };
       set({ messages: [...messages, localMsg] });
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to send message");
