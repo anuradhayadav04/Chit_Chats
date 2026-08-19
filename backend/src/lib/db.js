@@ -1,4 +1,12 @@
 import mongoose from "mongoose";
+import dns from "dns";
+
+try {
+  dns.setServers(["8.8.8.8", "8.8.4.4"]);
+  dns.setDefaultResultOrder("ipv4first");
+} catch (e) {
+  // Ignore fallback warnings
+}
 
 export const connectDB = async () => {
   try {
