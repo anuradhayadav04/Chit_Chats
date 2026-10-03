@@ -41,7 +41,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/keys", keyRoutes);
 
 // Health check route
-app.get("/", (req, res) => {
+app.get("/health", (req, res) => {
   res.send("ChitChat Backend is Live 🚀");
 });
 
